@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.widget.EditText;
 
 import com.codemate.booklibrary.R;
+import com.codemate.booklibrary.ui.activities.main.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.codemate.booklibrary.ui;
+package com.codemate.booklibrary.ui.activities.main;
 
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import com.codemate.booklibrary.data.Book;
 import com.codemate.booklibrary.data.Library;
 import com.codemate.booklibrary.R;
 import com.codemate.booklibrary.data.RandomBookGenerator;
+import com.codemate.booklibrary.ui.adapter.BookAdapter;
 
 import java.util.List;
 

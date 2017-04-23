@@ -3,6 +3,8 @@ package com.codemate.booklibrary.ui;
 import com.codemate.booklibrary.data.Book;
 import com.codemate.booklibrary.data.Library;
 import com.codemate.booklibrary.data.RandomBookGenerator;
+import com.codemate.booklibrary.ui.activities.main.MainPresenter;
+import com.codemate.booklibrary.ui.activities.main.MainView;
 
 import org.junit.Before;
 import org.junit.Test;

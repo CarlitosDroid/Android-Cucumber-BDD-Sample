@@ -2,18 +2,12 @@ package com.codemate.booklibrary.steps;
 
 import com.codemate.booklibrary.data.Book;
 import com.codemate.booklibrary.data.Library;
-import com.codemate.booklibrary.ui.MainPresenter;
-import com.codemate.booklibrary.ui.MainView;
-
-import org.junit.Assert;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cucumber.api.Format;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

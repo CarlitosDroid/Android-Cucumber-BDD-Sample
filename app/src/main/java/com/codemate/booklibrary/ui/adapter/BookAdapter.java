@@ -1,4 +1,4 @@
-package com.codemate.booklibrary.ui;
+package com.codemate.booklibrary.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

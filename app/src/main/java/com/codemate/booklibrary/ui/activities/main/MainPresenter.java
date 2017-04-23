@@ -1,4 +1,4 @@
-package com.codemate.booklibrary.ui;
+package com.codemate.booklibrary.ui.activities.main;
 
 import android.support.annotation.VisibleForTesting;
 
