@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.codemate.booklibrary.R;
 import com.codemate.booklibrary.ui.activities.main.MainActivity;
-import com.codemate.booklibrary.ui.activities.material.MaterialSearchViewActivity;
+import com.codemate.booklibrary.ui.activities.searchview_toolbar.SearchViewToolbarActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         btnMaterialSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, MaterialSearchViewActivity.class));
+                startActivity(new Intent(HomeActivity.this, SearchViewToolbarActivity.class));
             }
         });
     }

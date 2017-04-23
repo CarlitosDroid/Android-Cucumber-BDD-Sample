@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Book Library</string>
+    <string name="menu_search">Search</string>
+    <string name="title_activity_sssss_activity">sssssACtivity</string>
 </resources>
