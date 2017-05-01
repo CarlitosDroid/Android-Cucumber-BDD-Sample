@@ -6,6 +6,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,13 +16,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codemate.booklibrary.R;
+import com.codemate.booklibrary.data.Book;
+import com.codemate.booklibrary.data.Library;
+import com.codemate.booklibrary.data.RandomBookGenerator;
+import com.codemate.booklibrary.ui.activities.main.MainPresenter;
+import com.codemate.booklibrary.ui.activities.main.MainView;
+import com.codemate.booklibrary.ui.adapter.BookAdapter;
 
-public class SearchViewToolbarActivity extends AppCompatActivity {
+import java.util.List;
+
+public class SearchViewToolbarActivity extends AppCompatActivity implements MainView, SearchView.OnQueryTextListener {
 
     private Toolbar toolbar;
 
     private SearchView searchView;
     private MenuItem menuItem;
+    private RecyclerView rcvBooks;
+    MainPresenter presenter;
+
+    private BookAdapter bookAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +42,42 @@ public class SearchViewToolbarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_searchview_toolbar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        searchView = (SearchView) findViewById(R.id.searchview);
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
+        initializeViews();
 
-                Log.e("ABB ", "AABB " + newText);
-                return false;
-            }
-        });
+        presenter = new MainPresenter(this, new Library(), new RandomBookGenerator());
+        presenter.fetchBooks();
+
+//        searchView = (SearchView) findViewById(R.id.searchview);
+//        SearchManager searchManager =
+//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//
+//                Log.e("ABB ", "AABB " + newText);
+//                return false;
+//            }
+//        });
+    }
+
+    private void initializeViews() {
+        bookAdapter = new BookAdapter();
+
+        RecyclerView bookRecycler = (RecyclerView) findViewById(R.id.rcvBook);
+        bookRecycler.setLayoutManager(new LinearLayoutManager(this));
+        bookRecycler.setAdapter(bookAdapter);
+
+//        SearchView searchView = (SearchView) findViewById(R.id.searchView);
+//        searchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -60,6 +92,7 @@ public class SearchViewToolbarActivity extends AppCompatActivity {
                 (SearchView) menu.findItem(R.id.m_search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);
 
 
         MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
@@ -78,6 +111,22 @@ public class SearchViewToolbarActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        presenter.searchForBooks(newText);
+        return false;
+    }
+
+    @Override
+    public void showBooks(List<Book> books) {
+        bookAdapter.updateItems(books);
     }
 
 //    @Override
