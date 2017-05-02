@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.searchview_toolbar.SearchViewToolbarActivity">
+    tools:context=".ui.activities.toolbarsearchview.ToolbarSVActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_searchview_toolbar" />
+    <include layout="@layout/content_toolbar_sv" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

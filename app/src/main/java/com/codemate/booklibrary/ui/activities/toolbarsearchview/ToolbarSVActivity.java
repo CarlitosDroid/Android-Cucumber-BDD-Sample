@@ -1,4 +1,4 @@
-package com.codemate.booklibrary.ui.activities.searchview_toolbar;
+package com.codemate.booklibrary.ui.activities.toolbarsearchview;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -25,9 +25,12 @@ import com.codemate.booklibrary.ui.adapter.BookAdapter;
 
 import java.util.List;
 
-public class SearchViewToolbarActivity extends AppCompatActivity implements MainView, SearchView.OnQueryTextListener {
+public class ToolbarSVActivity extends AppCompatActivity implements MainView, SearchView.OnQueryTextListener {
 
     private Toolbar toolbar;
+
+
+
 
     private SearchView searchView;
     private MenuItem menuItem;
@@ -39,9 +42,12 @@ public class SearchViewToolbarActivity extends AppCompatActivity implements Main
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchview_toolbar);
+        setContentView(R.layout.activity_toolbar_sv);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
         setSupportActionBar(toolbar);
+
 
 
         initializeViews();
@@ -83,7 +89,7 @@ public class SearchViewToolbarActivity extends AppCompatActivity implements Main
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_search_toolbar, menu);
+        menuInflater.inflate(R.menu.menu_toolbar_sv, menu);
         menuItem = menu.findItem(R.id.m_search);
 
         SearchManager searchManager =

@@ -2,4 +2,9 @@
     <string name="app_name">Book Library</string>
     <string name="menu_search">Search</string>
     <string name="title_activity_sssss_activity">sssssACtivity</string>
+    <string name="title_activity_material_sv">MaterialSVActivity</string>
+
+    <string name="action_search">Search</string>
+    <string name="action_status">Status</string>
+    <string name="action_settings">Settings</string>
 </resources>
