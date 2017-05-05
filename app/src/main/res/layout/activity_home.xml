@@ -18,7 +18,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <Button
         android:id="@+id/btnToolbarSearchView"
@@ -40,4 +41,18 @@
         app:layout_constraintLeft_toLeftOf="@+id/btnToolbarSearchView"
         app:layout_constraintRight_toRightOf="@+id/btnToolbarSearchView"
         app:layout_constraintTop_toBottomOf="@+id/btnToolbarSearchView" />
+
+    <Button
+        android:id="@+id/btnDialogMaterialSearchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="32dp"
+        android:elevation="0dp"
+        android:text="DialogMaterialSearchView"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintLeft_toLeftOf="@+id/btnMaterialSearchView"
+        app:layout_constraintRight_toRightOf="@+id/btnMaterialSearchView"
+        app:layout_constraintTop_toBottomOf="@+id/btnMaterialSearchView" />
 </android.support.constraint.ConstraintLayout>
