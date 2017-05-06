@@ -7,6 +7,6 @@
     tools:context=".ui.activities.materialsearchview.MaterialSVActivity">
 
     <include layout="@layout/toolbar"/>
-    <include layout="@layout/search_toolbar"
+    <include layout="@layout/toolbar_search"
         android:visibility="gone"/>
 </RelativeLayout>

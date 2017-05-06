@@ -14,7 +14,7 @@
         <include layout="@layout/toolbar" />
 
         <include
-            layout="@layout/search_toolbar"
+            layout="@layout/toolbar_search"
             android:visibility="gone" />
 
     </android.support.design.widget.AppBarLayout>

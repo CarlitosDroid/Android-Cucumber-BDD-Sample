@@ -29,9 +29,6 @@ public class ToolbarSVActivity extends AppCompatActivity implements MainView, Se
 
     private Toolbar toolbar;
 
-
-
-
     private SearchView searchView;
     private MenuItem menuItem;
     private RecyclerView rcvBooks;

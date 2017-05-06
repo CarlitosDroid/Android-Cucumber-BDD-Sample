@@ -28,7 +28,7 @@ import java.lang.reflect.Field;
 
 public class MaterialSVActivity extends AppCompatActivity {
 
-    Toolbar toolbar, searchtollbar;
+    Toolbar toolbar, toolbar_search;
     Menu search_menu;
     MenuItem search_menuItem;
 
@@ -37,25 +37,24 @@ public class MaterialSVActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        searchtollbar = (Toolbar) findViewById(R.id.searchtoolbar);
+        toolbar_search = (Toolbar) findViewById(R.id.toolbar_search);
         setSupportActionBar(toolbar);
 
 
         setupSearchToolbar();
-
     }
 
     public void setupSearchToolbar() {
-        searchtollbar.inflateMenu(R.menu.menu_search);
-        search_menu = searchtollbar.getMenu();
+        toolbar_search.inflateMenu(R.menu.menu_search);
+        search_menu = toolbar_search.getMenu();
 
-        searchtollbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar_search.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    circleReveal(R.id.searchtoolbar, 1, true, false);
+                    circleReveal(R.id.toolbar_search, 1, true, false);
                 else
-                    searchtollbar.setVisibility(View.GONE);
+                    toolbar_search.setVisibility(View.GONE);
             }
         });
 
@@ -66,10 +65,10 @@ public class MaterialSVActivity extends AppCompatActivity {
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 // Do something when collapsed
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    circleReveal(R.id.searchtoolbar, 1, true, false);
+                    circleReveal(R.id.toolbar_search, 1, true, false);
                 } else {
                     toolbar.setVisibility(View.VISIBLE);
-                    searchtollbar.setVisibility(View.GONE);
+                    toolbar_search.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -157,11 +156,11 @@ public class MaterialSVActivity extends AppCompatActivity {
                 return true;
             case R.id.action_search:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    circleReveal(R.id.searchtoolbar, 1, true, true);
+                    circleReveal(R.id.toolbar_search, 1, true, true);
                 } else {
                     toolbar.setVisibility(View.GONE);
                     Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
-                    searchtollbar.setVisibility(View.VISIBLE);
+                    toolbar_search.setVisibility(View.VISIBLE);
                 }
 
                 search_menuItem.expandActionView();
