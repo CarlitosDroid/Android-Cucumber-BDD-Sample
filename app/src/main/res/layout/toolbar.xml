@@ -6,4 +6,4 @@
     android:layout_alignParentTop="true"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"/>
+    android:background="@color/md_teal_500"/>

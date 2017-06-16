@@ -26,49 +26,62 @@ import com.codemate.booklibrary.R;
 import java.lang.reflect.Field;
 
 
-public class MaterialSVActivity extends AppCompatActivity {
+public class MaterialSVActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    Toolbar toolbar, toolbar_search;
-    Menu search_menu;
-    MenuItem search_menuItem;
+    Toolbar toolbar, secondToolbar;
+    Menu secondToolbarMenu;
+    MenuItem secondToolbarMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar_search = (Toolbar) findViewById(R.id.toolbar_search);
+        secondToolbar = (Toolbar) findViewById(R.id.toolbar_search);
         setSupportActionBar(toolbar);
 
 
         setupSearchToolbar();
+        initSearchView();
     }
 
+    //setUp the secondToolbar and all its menuItem's event
     public void setupSearchToolbar() {
-        toolbar_search.inflateMenu(R.menu.menu_search);
-        search_menu = toolbar_search.getMenu();
+        //R.menu.menu_search is a especial xml Menu because contains app:actionViewClass property and
+        //we can inflate a widget class for this case the SearchViewWidget
+        //Inflating a menu to the secondToolbar
+        secondToolbar.inflateMenu(R.menu.menu_search);
+        //Getting the menu of the secondToolbar for access to its menuItems
+        secondToolbarMenu = secondToolbar.getMenu();
 
-        toolbar_search.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    circleReveal(R.id.toolbar_search, 1, true, false);
-                else
-                    toolbar_search.setVisibility(View.GONE);
-            }
-        });
+//        secondToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+//                    circleReveal(R.id.toolbar_search, 1, true, false);
+//                else
+//                    secondToolbar.setVisibility(View.GONE);
+//            }
+//        });
 
-        search_menuItem = search_menu.findItem(R.id.action_filter_search);
+        //find a MenuItem in the secondToolbarMenu
+        secondToolbarMenuItem = secondToolbarMenu.findItem(R.id.action_filter_search);
 
-        MenuItemCompat.setOnActionExpandListener(search_menuItem, new MenuItemCompat.OnActionExpandListener() {
+
+        //add a listener for detect when appear or disappear the SearchView widget when we click the secondToolbarMenuItem
+        MenuItemCompat.setOnActionExpandListener(secondToolbarMenuItem, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
+
+                Toast.makeText(MaterialSVActivity.this, "COLLLAPSED ", Toast.LENGTH_SHORT).show();
                 // Do something when collapsed
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    //When disappear the SearchViewWidget , we have to hide(INVISIBLE) this second toolbar
+                    //and we'll do it using the reveal animation
                     circleReveal(R.id.toolbar_search, 1, true, false);
                 } else {
                     toolbar.setVisibility(View.VISIBLE);
-                    toolbar_search.setVisibility(View.GONE);
+                    secondToolbar.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -76,16 +89,16 @@ public class MaterialSVActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 // Do something when expanded
+
+                Toast.makeText(MaterialSVActivity.this, "EXPANDED ", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
-
-        initSearchView();
     }
 
     public void initSearchView() {
         final SearchView searchView =
-                (SearchView) search_menu.findItem(R.id.action_filter_search).getActionView();
+                (SearchView) secondToolbarMenu.findItem(R.id.action_filter_search).getActionView();
 
         // Enable/Disable Submit button in the keyboard
 
@@ -158,12 +171,13 @@ public class MaterialSVActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     circleReveal(R.id.toolbar_search, 1, true, true);
                 } else {
-                    toolbar.setVisibility(View.GONE);
-                    Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
-                    toolbar_search.setVisibility(View.VISIBLE);
+//                    toolbar.setVisibility(View.GONE);
+//                    Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
+//                    toolbar_search.setVisibility(View.VISIBLE);
                 }
 
-                search_menuItem.expandActionView();
+                //After secondToolbar is shown we need to expand its actionView for showing the SearchView directly
+                secondToolbarMenuItem.expandActionView();
                 return true;
             case R.id.action_settings:
                 Toast.makeText(this, "Home Settings Click", Toast.LENGTH_SHORT).show();
@@ -173,47 +187,58 @@ public class MaterialSVActivity extends AppCompatActivity {
         }
     }
 
-
+    //This method show or hide the secondToolbar with the Reveal Animation
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void circleReveal(int viewID, int posFromRight, boolean containsOverflow, final boolean isShow) {
-        final View myView = findViewById(viewID);
+    public void circleReveal(int viewId, int menuItemPositionFromRight, boolean containsOverflow, final boolean shouldShowSecondToolbar) {
 
-        int width = myView.getWidth();
+        //Inflating the second toolbar
+        final View secondToolbar = findViewById(viewId);
 
-        if (posFromRight > 0)
-            width -= (posFromRight * getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_material)) - (getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_material) / 2);
+        int width = secondToolbar.getWidth();
+
+        // getDimensionPixelOffset() in my case 48dp returns 96 pixels
+        if (menuItemPositionFromRight > 0)
+            //we subtract menuItem size from the right
+            width -= (menuItemPositionFromRight * getResources().getDimensionPixelOffset(R.dimen.abc_action_button_min_width_material)) - (getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_material) / 2);
+
+        //if we are in a toolbar we should subtract a overflowSize
         if (containsOverflow)
             width -= getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_overflow_material);
 
         int cx = width;
-        int cy = myView.getHeight() / 2;
-
+        int cy = secondToolbar.getHeight() / 2;
         Animator anim;
-        if (isShow)
-            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, (float) width);
+        if (shouldShowSecondToolbar)
+            anim = ViewAnimationUtils.createCircularReveal(secondToolbar, cx, cy, 0, (float) width);
         else
-            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, (float) width, 0);
+            anim = ViewAnimationUtils.createCircularReveal(secondToolbar, cx, cy, (float) width, 0);
 
         anim.setDuration((long) 220);
+
+        // make the view visible and start the animation
+        if (shouldShowSecondToolbar)
+            secondToolbar.setVisibility(View.VISIBLE);
 
         // make the view invisible when the animation is done
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (!isShow) {
+                if (!shouldShowSecondToolbar) {
                     super.onAnimationEnd(animation);
-                    myView.setVisibility(View.INVISIBLE);
+                    secondToolbar.setVisibility(View.INVISIBLE);
                 }
             }
         });
-
-        // make the view visible and start the animation
-        if (isShow)
-            myView.setVisibility(View.VISIBLE);
-
-        // start the animation
         anim.start();
+    }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

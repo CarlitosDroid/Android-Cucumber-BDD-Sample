@@ -37,11 +37,7 @@
         <activity
             android:name=".ui.activities.materialsearchview.MaterialSVActivity"
             android:label="@string/title_activity_material_sv"
-            android:theme="@style/AppTheme2" />
-        <activity
-            android:name=".ui.activities.dialogmaterialsearchview.DialogMaterialSVActivity"
-            android:label="@string/title_activity_dialog_material_sv"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/MaterialSVTheme" />
     </application>
 
 </manifest>

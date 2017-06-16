@@ -8,5 +8,5 @@
 
     <include layout="@layout/toolbar"/>
     <include layout="@layout/toolbar_search"
-        android:visibility="gone"/>
+        android:visibility="invisible"/>
 </RelativeLayout>
