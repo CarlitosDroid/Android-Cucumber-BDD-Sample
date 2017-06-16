@@ -43,6 +43,7 @@ public class MaterialSVActivity extends AppCompatActivity implements MaterialSVV
     MaterialSVPresenter presenter;
 
     private BookAdapter bookAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +95,7 @@ public class MaterialSVActivity extends AppCompatActivity implements MaterialSVV
                     //and we'll do it using the reveal animation
                     circleReveal(1, true, false);
                 } else {
-                    toolbar.setVisibility(View.VISIBLE);
-                    secondToolbar.setVisibility(View.GONE);
+                    setOnlyToolbarVisible();
                 }
                 return true;
             }
@@ -155,8 +155,7 @@ public class MaterialSVActivity extends AppCompatActivity implements MaterialSVV
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     circleReveal(1, true, true);
                 } else {
-                    toolbar.setVisibility(View.GONE);
-                    secondToolbar.setVisibility(View.VISIBLE);
+                    setOnlySecondToolbarVisible();
                 }
                 //After secondToolbar is shown we need to expand its actionView for showing the SearchView directly
                 secondToolbarMenuItem.expandActionView();
@@ -168,6 +167,17 @@ public class MaterialSVActivity extends AppCompatActivity implements MaterialSVV
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void setOnlyToolbarVisible() {
+        toolbar.setVisibility(View.VISIBLE);
+        secondToolbar.setVisibility(View.GONE);
+    }
+
+    public void setOnlySecondToolbarVisible() {
+        toolbar.setVisibility(View.GONE);
+        secondToolbar.setVisibility(View.VISIBLE);
+    }
+
 
     //This method show or hide the secondToolbar with the Reveal Animation
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -199,7 +209,6 @@ public class MaterialSVActivity extends AppCompatActivity implements MaterialSVV
         anim.setDuration((long) 220);
 
 
-
         // make the view invisible when the animation is done
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -227,5 +236,18 @@ public class MaterialSVActivity extends AppCompatActivity implements MaterialSVV
     @Override
     public void showBooks(List<Book> books) {
         bookAdapter.updateItems(books);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (secondToolbar.getVisibility() == View.VISIBLE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                circleReveal(1, true, false);
+            } else {
+                setOnlyToolbarVisible();
+            }
+        } else {
+            super.onBackPressed();
+        }
     }
 }
