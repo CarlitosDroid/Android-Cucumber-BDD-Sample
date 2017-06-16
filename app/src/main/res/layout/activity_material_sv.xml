@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search_view_check"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codemate.booklibrary.ui.activities.materialsearchview.MaterialSVActivity">
+    android:orientation="vertical"
+    tools:context=".ui.activities.materialsearchview.MaterialSVActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <include layout="@layout/toolbar" />
 
         <include
             layout="@layout/toolbar_search"
-            android:visibility="gone" />
+            android:visibility="invisible" />
+    </FrameLayout>
 
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_material_sv" />
-
-</android.support.design.widget.CoordinatorLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bookRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
